@@ -1,0 +1,16 @@
+Server:
+  Listen: 18080
+  Env: Dev
+
+Database:
+  Driver: mysql
+  Mysql:
+    HostPort: tcp(172.20.10.20:3306)
+    UserPassword: root:bjuqjaJu72AupvEW4IuNULYYYjIdYXc9
+    DB: demo
+  Conn:
+    MaxLifeTime: 600
+    MaxIdle: 10
+    MaxOpen: 80
+    PerOpTimeout: 3
+
