@@ -7,7 +7,6 @@ import (
 	"os"
 	"os/signal"
 	"runtime"
-	"sync"
 	"syscall"
 	"time"
 
@@ -16,7 +15,6 @@ import (
 
 type httpServer struct {
 	g      *errgroup.Group
-	wg     sync.WaitGroup
 	ctx    context.Context
 	cancel func()
 }
@@ -38,7 +36,6 @@ func Init() *httpServer {
 }
 
 func (h *httpServer) AddServer(addr string, handler http.Handler) {
-	h.wg.Add(1)
 	h.g.Go(func() (err error) {
 		defer func() {
 			if r := recover(); r != nil {
@@ -55,7 +52,6 @@ func (h *httpServer) AddServer(addr string, handler http.Handler) {
 		}
 		go func() {
 			<-h.ctx.Done()
-			h.wg.Done()
 			fmt.Println("Addr: ", addr, " Closed!!")
 			ctx, _ := context.WithTimeout(context.Background(), time.Second)
 			s.Shutdown(ctx)
