@@ -11,6 +11,7 @@ import (
 )
 
 type UserService struct {
+	api.UnimplementedUserServer
 }
 
 func (s *UserService) UserInfo(ctx context.Context, req *api.UserRequest) (*api.UserResponse, error) {
@@ -25,8 +26,4 @@ func (s *UserService) UserInfo(ctx context.Context, req *api.UserRequest) (*api.
 		Name: user.Name,
 		Age:  user.Age,
 	}, nil
-}
-
-func (s *UserService) mustEmbedUnimplementedUserServer() {
-
 }

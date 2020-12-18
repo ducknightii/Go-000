@@ -25,7 +25,7 @@ func main() {
 
 	userService := service.UserService{}
 	server := grpc.NewServer()
-	api.RegisterUserServer(server, userService)
+	api.RegisterUserServer(server, &userService)
 	if err := server.Serve(listen); err != nil {
 		log.Fatalf("RPC server listen failed. err: %s\n", err.Error())
 	}
